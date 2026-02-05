@@ -7,54 +7,13 @@ import json
 orchestrator = ResearchOrchestrator()
 
 
-def format_research_report(result_dict):
-    if isinstance(result_dict, str):
-        return result_dict
-    
-    if isinstance(result_dict, dict):
-        report = "# Research report\n\n"
-        
-        if 'Overview' in result_dict:
-            report += f"## Overview\n{result_dict['Overview']}\n\n"
-        
-        if 'Key findings' in result_dict:
-            report += "## Key findings\n\n"
-            for paper, finding in result_dict['Key findings'].items():
-                report += f"### {paper}\n{finding}\n\n"
-        
-        if 'Common themes and trends' in result_dict:
-            report += f"## Common themes and trends\n{result_dict['Common themes and trends']}\n\n"
-        
-        if 'Most important citations' in result_dict:
-            report += "## Most important citations\n\n"
-            for paper, citations in result_dict['Most important citations'].items():
-                report += f"### {paper}\n"
-                if isinstance(citations, dict):
-                    if citations.get('arxiv_refs'):
-                        report += f"- **arXiv references:** {', '.join(citations['arxiv_refs'])}\n"
-                    if citations.get('doi_refs'):
-                        report += f"- **DOI references:** {', '.join(citations['doi_refs'])}\n"
-                    report += f"- **Total citations:** {citations.get('total_count', 0)}\n"
-                    report += f"- **Numbered references:** {citations.get('numbered_refs', 0)}\n"
-                report += "\n"
-        
-        return report
-    
-    return json.dumps(result_dict, indent=2, ensure_ascii=False)
-
-
 def conduct_research(query: str, num_papers: int) -> tuple:
     try:
         result = orchestrator.research(query, num_papers)
-        
-        formatted_report = format_research_report(result["result"])
-        
-        return (
-            formatted_report,
-            "Research completed successfully"
-        )
+        return (result["result"], "Research completed successfully")
     except Exception as e:
         return (f"Error: {str(e)}", "Research failed")
+
 
 
 with gr.Blocks(title="Multi-Agent Research Assistant") as demo:

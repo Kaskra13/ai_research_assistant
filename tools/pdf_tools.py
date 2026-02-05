@@ -26,3 +26,9 @@ class PDFExtractorTool(Tool):
             return text[:10000]
         except Exception as e:
             return f"Error extracting PDF: {str(e)}"
+
+# Limit to 10 000 characters due to downstream constraints:
+# - BART model has about 1024 token input limit
+# - Groq API has 12K tokens/min limit (llama-3.3-70b-versatile)
+# - Full papers (50-100K chars) would exceed both limits
+# Extracting first 10K chars typically covers: abstract, intro, methodology
