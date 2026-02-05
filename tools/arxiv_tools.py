@@ -1,6 +1,7 @@
 import arxiv
 from smolagents import Tool
 from typing import List, Dict
+import config
 
 
 class ArxivSearchTool(Tool):
@@ -9,17 +10,17 @@ class ArxivSearchTool(Tool):
     Searches for scientific papers in the arXiv database.
     Args:
         query (str): Search query (e.g., 'machine learning transformers')
-        max_results (int): Maximum number of results (default 5)
+        max_results (int): Maximum number of results (default from config.MAX_PAPERS)
     Returns:
         List[Dict]: List of papers with title, authors, abstract, URL, and ID
     """
     inputs = {
         "query": {"type": "string", "description": "Search query"},
-        "max_results": {"type": "integer", "description": "Number of results", "default": 5, "nullable": True}
+        "max_results": {"type": "integer", "description": "Number of results", "default": config.MAX_PAPERS, "nullable": True}
     }
     output_type = "any"
 
-    def forward(self, query: str, max_results: int = 5) -> list:
+    def forward(self, query: str, max_results: int = config.MAX_PAPERS) -> list:
         try:
             search = arxiv.Search(
                 query=query,

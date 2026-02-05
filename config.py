@@ -19,4 +19,5 @@ MIN_SUMMARY_LENGTH = 50 # Min output length per chunk
 CHUNK_SIZE = 1024 # Match BART's about 1024 token input limit
 # API rate limit considerations (Groq: 12K TPM, 30 RPM)
 MAX_AGENT_STEPS = 10 # Prevent excessive API calls in agent loop
+MAX_PAPERS = 3 # Maximum number of papers to analyze
 

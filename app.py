@@ -37,7 +37,7 @@ with gr.Blocks(title="Multi-Agent Research Assistant") as demo:
             )
             num_papers_slider = gr.Slider(
                 minimum=1,
-                maximum=3,
+                maximum=config.MAX_PAPERS,
                 value=2,
                 step=1,
                 label="Number of papers to analyze"
