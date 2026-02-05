@@ -34,6 +34,11 @@ class SummarizationTool(Tool):
             
             summaries = []
             for chunk in chunks[:5]:
+            # Process max 5 chunks to stay within API rate limits:
+            # - BART input: about 1024 tokens per chunk
+            # - 5 chunks = about 5K tokens total input
+            # - Groq TPM limit: 12K tokens/min
+            # This ensures we don't hit rate limits when processing multiple papers
                 if len(chunk.strip()) < 50:
                     continue
                 summary = self.summarizer(
