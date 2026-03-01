@@ -58,8 +58,8 @@ An intelligent research automation tool that leverages AI agents to search, down
 
 1. Clone the repository
 ```bash
-git clone https://github.com/Kaskra13/ai_research_assistant
-cd ai-research-assistant
+git clone https://github.com/Kaskra13/ai_research_assistant ai-research-assistant
+cd ai-research-assistant 
 ```
 
 2. Create a virtual environment
